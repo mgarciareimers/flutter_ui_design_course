@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Widgets.
+// Pages.
 import 'package:backgrounds_custom_painter/src/pages/headers_page.dart';
 
 void main() {
