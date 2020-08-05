@@ -1,11 +1,15 @@
-import 'package:backgrounds_custom_painter/src/widgets/headers.dart';
 import 'package:flutter/material.dart';
+
+// Widgets.
+import 'package:backgrounds_custom_painter/src/widgets/headers.dart';
 
 class HeadersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SquaredHeader(),
+      body: DiagonalHeader(),
     );
   }
 }
+
+
