@@ -60,5 +60,51 @@ class _DiagonalHeaderPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
   }
-
 }
+
+class TriangularHeader extends StatelessWidget {
+  final bool isTop;
+
+  const TriangularHeader({Key key, this.isTop}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: CustomPaint(
+        painter: _TriangularHeaderPainter(this.isTop),
+      ),
+    );
+  }
+}
+
+class _TriangularHeaderPainter extends CustomPainter {
+  final bool isTop;
+
+  _TriangularHeaderPainter(this.isTop);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = new Paint();
+
+    paint.color = Color(0xff615AAB);
+    paint.style = PaintingStyle.fill; // If .stroke, paint draws lines (no fill).
+    paint.strokeWidth = 1;
+
+    final path = new Path();
+
+    // Define path.
+    path.lineTo(size.width, size.height);
+    path.lineTo(this.isTop ? size.width : 0, this.isTop ? 0 : size.height);
+    path.lineTo(0, 0);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
