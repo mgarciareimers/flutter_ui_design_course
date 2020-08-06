@@ -153,5 +153,43 @@ class _PeakHeaderPainter extends CustomPainter {
   }
 }
 
+// CURVE HEADER.
+class CurveHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: CustomPaint(
+        painter: _CurveHeaderPainter(),
+      ),
+    );
+  }
+}
+
+class _CurveHeaderPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = new Paint();
+
+    paint.color = Color(0xff615AAB);
+    paint.style = PaintingStyle.fill; // If .stroke, paint draws lines (no fill).
+    paint.strokeWidth = 1;
+
+    final path = new Path();
+
+    // Define path.
+    path.lineTo(0, size.height * 0.27);
+    path.quadraticBezierTo(size.width * 0.5, size.height * 0.4, size.width, size.height * 0.27);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}
 
 
