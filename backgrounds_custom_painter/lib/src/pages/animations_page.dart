@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as Math;
 
 class AnimationsPage extends StatelessWidget {
   @override
@@ -21,13 +22,26 @@ class AnimatedRectangle extends StatefulWidget {
 class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> rotation;
+  //Animation<double> opacity;
+
+  CurvedAnimation curve;
 
   @override
   void initState() {
     this.controller = new AnimationController(vsync: this, duration: Duration(milliseconds: 3000));
-    this.rotation = Tween(begin: 0.0, end: 360.0).animate(controller);
+    //this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(controller);
 
+    this.curve = new CurvedAnimation(parent: this.controller, curve: Curves.easeOut);
+    //this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(controller);
+    this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(this.curve);
 
+    controller.addListener(() {
+      // Do the something when animation is completed.
+      if (controller.status == AnimationStatus.completed) {
+        //controller.reverse();
+        controller.reset();
+      }
+    });
 
     super.initState();
   }
@@ -41,12 +55,17 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
-    return _Rectangle();
+    // Play the animation.
+    this.controller.forward();
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext context, Widget child) {
+        return Transform.rotate(angle: this.rotation.value, child: _Rectangle());
+      },
+    );
   }
 }
-
-
-
 
 
 
