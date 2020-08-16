@@ -24,7 +24,7 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
   Animation<double> rotation;
   Animation<double> opacity;
 
-  CurvedAnimation curve;
+  CurvedAnimation curveRotation, curveOpacity;
 
   @override
   void initState() {
@@ -32,12 +32,13 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
     //this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(controller);
 
     // Rotation.
-    this.curve = new CurvedAnimation(parent: this.controller, curve: Curves.easeOut);
+    this.curveRotation = new CurvedAnimation(parent: this.controller, curve: Curves.easeOut);
     //this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(controller);
-    this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(this.curve);
+    this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(this.curveRotation);
 
     // Opacity.
-    this.opacity = Tween(begin: 0.0, end: 1.0).animate(this.controller);
+    this.curveOpacity = new CurvedAnimation(parent: this.controller, curve: Interval(0.0, 0.25, curve: Curves.easeOut)); // Interval animates from 0 to 1 of the total animation time.
+    this.opacity = Tween(begin: 0.0, end: 1.0).animate(this.curveOpacity);
 
     controller.addListener(() {
       // Do the something when animation is completed.
