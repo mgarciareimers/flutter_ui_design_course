@@ -22,7 +22,7 @@ class AnimatedRectangle extends StatefulWidget {
 class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> rotation;
-  //Animation<double> opacity;
+  Animation<double> opacity;
 
   CurvedAnimation curve;
 
@@ -31,15 +31,19 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
     this.controller = new AnimationController(vsync: this, duration: Duration(milliseconds: 3000));
     //this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(controller);
 
+    // Rotation.
     this.curve = new CurvedAnimation(parent: this.controller, curve: Curves.easeOut);
     //this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(controller);
     this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(this.curve);
+
+    // Opacity.
+    this.opacity = Tween(begin: 0.0, end: 1.0).animate(this.controller);
 
     controller.addListener(() {
       // Do the something when animation is completed.
       if (controller.status == AnimationStatus.completed) {
         //controller.reverse();
-        controller.reset();
+        //controller.reset();
       }
     });
 
@@ -59,9 +63,16 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
     this.controller.forward();
 
     return AnimatedBuilder(
+      child: _Rectangle(),
       animation: controller,
-      builder: (BuildContext context, Widget child) {
-        return Transform.rotate(angle: this.rotation.value, child: _Rectangle());
+      builder: (BuildContext context, Widget rectangleChild) {
+        return Transform.rotate(
+          angle: this.rotation.value,
+          child: Opacity(
+            opacity: this.opacity.value,
+            child: rectangleChild,
+          ),
+        );
       },
     );
   }
