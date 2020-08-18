@@ -23,8 +23,10 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
   AnimationController controller;
   Animation<double> rotation;
   Animation<double> opacity;
+  Animation<double> moveRight;
+  Animation<double> scaleUp;
 
-  CurvedAnimation curveRotation, curveOpacity;
+  CurvedAnimation curveRotation, curveOpacity, curveMoveRight, curveScaleUp;
 
   @override
   void initState() {
@@ -34,17 +36,26 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
     // Rotation.
     this.curveRotation = new CurvedAnimation(parent: this.controller, curve: Curves.easeOut);
     //this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(controller);
-    this.rotation = Tween(begin: 0.0, end: 2 * Math.pi).animate(this.curveRotation);
+    this.rotation = new Tween(begin: 0.0, end: 2 * Math.pi).animate(this.curveRotation);
 
     // Opacity.
     this.curveOpacity = new CurvedAnimation(parent: this.controller, curve: Interval(0.0, 0.25, curve: Curves.easeOut)); // Interval animates from 0 to 1 of the total animation time.
-    this.opacity = Tween(begin: 0.0, end: 1.0).animate(this.curveOpacity);
+    this.opacity = new Tween(begin: 0.0, end: 1.0).animate(this.curveOpacity);
+
+    // Move right.
+    this.curveMoveRight = new CurvedAnimation(parent: this.controller, curve: Interval(0.0, 1, curve: Curves.easeOut));
+    this.moveRight = new Tween(begin: 0.0, end: 100.0).animate(this.curveMoveRight);
+
+    // Scale Up.
+    this.curveScaleUp = new CurvedAnimation(parent: this.controller, curve: Interval(0.0, 1, curve: Curves.easeOut));
+    this.scaleUp = new Tween(begin: 0.0, end: 2.0).animate(this.curveScaleUp);
 
     controller.addListener(() {
       // Do the something when animation is completed.
       if (controller.status == AnimationStatus.completed) {
         //controller.reverse();
-        //controller.reset();
+        controller.reset();
+        //controller.repeat();
       }
     });
 
@@ -67,11 +78,17 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
       child: _Rectangle(),
       animation: controller,
       builder: (BuildContext context, Widget rectangleChild) {
-        return Transform.rotate(
-          angle: this.rotation.value,
-          child: Opacity(
-            opacity: this.opacity.value,
-            child: rectangleChild,
+        return Transform.scale(
+            scale: this.scaleUp.value,
+          child: Transform.translate(
+            offset: Offset(this.moveRight.value, 0),
+            child: Transform.rotate(
+              angle: this.rotation.value,
+              child: Opacity(
+                opacity: this.opacity.value,
+                child: rectangleChild,
+              ),
+            ),
           ),
         );
       },
