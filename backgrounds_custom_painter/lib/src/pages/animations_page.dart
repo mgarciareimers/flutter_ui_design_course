@@ -55,7 +55,7 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
     this.curveOpacityOut = new CurvedAnimation(parent: this.controller, curve: Interval(0.75, 1, curve: Curves.easeOut)); // Interval animates from 0 to 1 of the total animation time.
     this.opacityOut = new Tween(begin: 0.0, end: 1.0).animate(this.curveOpacityOut);
 
-    controller.addListener(() {
+    this.controller.addListener(() {
       // Do the something when animation is completed.
       if (controller.status == AnimationStatus.completed) {
         //controller.reverse();
