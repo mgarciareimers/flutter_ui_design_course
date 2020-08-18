@@ -25,8 +25,9 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
   Animation<double> opacity;
   Animation<double> moveRight;
   Animation<double> scaleUp;
+  Animation<double> opacityOut;
 
-  CurvedAnimation curveRotation, curveOpacity, curveMoveRight, curveScaleUp;
+  CurvedAnimation curveRotation, curveOpacity, curveMoveRight, curveScaleUp, curveOpacityOut;
 
   @override
   void initState() {
@@ -49,6 +50,10 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
     // Scale Up.
     this.curveScaleUp = new CurvedAnimation(parent: this.controller, curve: Interval(0.0, 1, curve: Curves.easeOut));
     this.scaleUp = new Tween(begin: 0.0, end: 2.0).animate(this.curveScaleUp);
+
+    // Opacity Out.
+    this.curveOpacityOut = new CurvedAnimation(parent: this.controller, curve: Interval(0.75, 1, curve: Curves.easeOut)); // Interval animates from 0 to 1 of the total animation time.
+    this.opacityOut = new Tween(begin: 0.0, end: 1.0).animate(this.curveOpacityOut);
 
     controller.addListener(() {
       // Do the something when animation is completed.
@@ -79,13 +84,13 @@ class _AnimatedRectangleState extends State<AnimatedRectangle> with SingleTicker
       animation: controller,
       builder: (BuildContext context, Widget rectangleChild) {
         return Transform.scale(
-            scale: this.scaleUp.value,
+          scale: this.scaleUp.value,
           child: Transform.translate(
             offset: Offset(this.moveRight.value, 0),
             child: Transform.rotate(
               angle: this.rotation.value,
               child: Opacity(
-                opacity: this.opacity.value,
+                opacity: this.opacity.value - this.opacityOut.value,
                 child: rectangleChild,
               ),
             ),
