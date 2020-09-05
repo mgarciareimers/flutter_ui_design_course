@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:backgrounds_custom_painter/src/pages/headers_page.dart';
 import 'package:backgrounds_custom_painter/src/pages/animations_page.dart';
 import 'package:backgrounds_custom_painter/src/challenges/animated_square_page.dart';
+import 'package:backgrounds_custom_painter/src/pages/circular_progress_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Designs',
       debugShowCheckedModeBanner: false,
-      home: AnimatedSquarePage(),
+      home: CircularProgressPage(),
     );
   }
 }
