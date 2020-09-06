@@ -95,5 +95,4 @@ class _MyRadialProgressPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
-
 }
