@@ -17,12 +17,25 @@ class _CircularGraphicsPageState extends State<CircularGraphicsPage> {
         child: Icon(Icons.refresh, color: Colors.white),
         onPressed: () => this._onButtonPressed(),
       ),
-      body: Center(
-        child: Container(
-          width: 300,
-          height: 300,
-          child: RadialProgress(percentage: this.percentage, primaryColor: Colors.deepPurple),
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(percentage: percentage, primaryColor: Colors.red, secondaryColor: Colors.redAccent, width: 150, height: 150, fontSize: 20),
+              CustomRadialProgress(percentage: percentage, primaryColor: Colors.green, secondaryColor: Colors.lightGreen, width: 150, height: 150, fontSize: 20),
+            ],
+          ),
+          CustomRadialProgress(percentage: percentage, primaryColor: Colors.blueGrey, secondaryColor: Colors.grey, width: 300, height: 300, fontSize: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(percentage: percentage, primaryColor: Colors.lightBlue, secondaryColor: Colors.lightBlueAccent, width: 150, height: 150, fontSize: 20),
+              CustomRadialProgress(percentage: percentage, primaryColor: Colors.purple, secondaryColor: Colors.deepPurpleAccent, width: 150, height: 150, fontSize: 20),
+            ],
+          ),
+        ],
       ),
 
     );
@@ -37,5 +50,27 @@ class _CircularGraphicsPageState extends State<CircularGraphicsPage> {
     }
 
     this.setState(() {});
+  }
+}
+
+class CustomRadialProgress extends StatelessWidget {
+  final double percentage;
+  final Color primaryColor;
+  final Color secondaryColor;
+  final double width;
+  final double height;
+  final double fontSize;
+
+  const CustomRadialProgress({ Key key, @required this.percentage, this.primaryColor, this.secondaryColor, @required this.width, @required this.height, this.fontSize }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: this.width,
+        height: this.height,
+        child: RadialProgress(percentage: this.percentage, primaryColor: this.primaryColor, secondaryColor: this.secondaryColor, fontSize: this.fontSize,),
+      ),
+    );
   }
 }

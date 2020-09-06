@@ -7,6 +7,7 @@ class RadialProgress extends StatefulWidget {
   final Color secondaryColor;
   final double primaryStroke;
   final double secondaryStroke;
+  final double fontSize;
 
   const RadialProgress({
     Key key,
@@ -15,6 +16,7 @@ class RadialProgress extends StatefulWidget {
     this.secondaryColor = Colors.grey,
     this.primaryStroke = 10,
     this.secondaryStroke = 4,
+    this.fontSize = 24,
   }) : super(key: key);
 
   @override
@@ -47,8 +49,6 @@ class _RadialProgressState extends State<RadialProgress> with SingleTickerProvid
     final animationDifference = this.previousPercentage == 100 ? 0 : widget.percentage - this.previousPercentage;
     this.previousPercentage = widget.percentage;
 
-    print(animationDifference);
-
     return AnimatedBuilder(
       animation: this.controller,
       builder: (BuildContext context, Widget child) {
@@ -60,7 +60,7 @@ class _RadialProgressState extends State<RadialProgress> with SingleTickerProvid
               height: double.infinity,
               child: CustomPaint(painter: _MyRadialProgressPainter((widget.percentage - animationDifference) + (animationDifference * controller.value ), widget.primaryColor, widget.secondaryColor, widget.primaryStroke, widget.secondaryStroke)),
             ),
-            Center(child: Text('${ widget.percentage.toInt() }%', style: TextStyle(fontSize: 50))),
+            Center(child: Text('${ widget.percentage.toInt() }%', style: TextStyle(fontSize: widget.fontSize))),
           ],
         );
       },
@@ -94,7 +94,8 @@ class _MyRadialProgressPainter extends CustomPainter {
     final paintArch = new Paint()
       ..strokeWidth = this.primaryStroke
       ..color = this.primaryColor
-      ..style = PaintingStyle.stroke;
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
 
     // Arch filling.
     double archAngle = 2 * Math.pi * (this.percentage / 100);
