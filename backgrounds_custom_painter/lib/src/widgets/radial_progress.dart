@@ -79,6 +79,9 @@ class _MyRadialProgressPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // final Gradient gradient = new LinearGradient(colors: [ this.primaryColor, Colors.red, Colors.black, this.secondaryColor ]); // To add gradient to the progress filling. Better send gradient from parent.
+    // final Rect rect = new Rect.fromCircle(center: Offset(0, 0), radius: 180); // To add gradient to the progress filling. Change offset and radius to customize gradient.
+
     // Completed circle.
     final paint = new Paint()
       ..strokeWidth = this.secondaryStroke
@@ -94,6 +97,7 @@ class _MyRadialProgressPainter extends CustomPainter {
     final paintArch = new Paint()
       ..strokeWidth = this.primaryStroke
       ..color = this.primaryColor
+      //..shader = gradient.createShader(rect) // To add gradient to the progress filling.
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
