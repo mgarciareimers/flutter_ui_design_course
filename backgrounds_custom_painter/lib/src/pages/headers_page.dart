@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Widgets.
-import 'package:backgrounds_custom_painter/src/widgets/headers.dart';
+import 'package:backgrounds_design/src/widgets/headers.dart';
 
 class HeadersPage extends StatelessWidget {
   @override

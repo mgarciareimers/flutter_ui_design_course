@@ -1,5 +1,7 @@
-import 'package:backgrounds_custom_painter/src/widgets/radial_progress.dart';
 import 'package:flutter/material.dart';
+
+// Widgets.
+import 'package:backgrounds_design/src/widgets/radial_progress.dart';
 
 class CircularGraphicsPage extends StatefulWidget {
   @override
