@@ -13,6 +13,8 @@ class SlideShowPage extends StatelessWidget {
         showOnTop: false,
         primaryColor: Colors.black,
         secondaryColor: Colors.grey,
+        primaryBulletSize: 10,
+        secondaryBulletSize: 6,
         slides: [
           SvgPicture.asset('assets/svg/slide_1.svg'),
           SvgPicture.asset('assets/svg/slide_2.svg'),

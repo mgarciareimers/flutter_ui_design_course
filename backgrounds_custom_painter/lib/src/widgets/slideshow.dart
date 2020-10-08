@@ -9,8 +9,10 @@ class Slideshow extends StatelessWidget {
   final bool showOnTop;
   final Color primaryColor;
   final Color secondaryColor;
+  final double primaryBulletSize;
+  final double secondaryBulletSize;
 
-  const Slideshow({ @required this.slides, this.showOnTop = false, this.primaryColor = Colors.black, this.secondaryColor = Colors.grey });
+  const Slideshow({ @required this.slides, this.showOnTop = false, this.primaryColor = Colors.black, this.secondaryColor = Colors.grey, this.primaryBulletSize = 12, this.secondaryBulletSize = 12 });
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,8 @@ class Slideshow extends StatelessWidget {
             builder: (BuildContext context) {
               Provider.of<_SlideShowModel>(context).primaryColor = this.primaryColor;
               Provider.of<_SlideShowModel>(context).secondaryColor = this.secondaryColor;
+              Provider.of<_SlideShowModel>(context).primaryBulletSize = this.primaryBulletSize;
+              Provider.of<_SlideShowModel>(context).secondaryBulletSize = this.secondaryBulletSize;
 
               return this._createContent();
             },
@@ -125,24 +129,26 @@ class _Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final slideShowModel = Provider.of<_SlideShowModel>(context);
+    final bool isPrimary = slideShowModel.currentPage >= this.index - 0.5 && slideShowModel.currentPage < this.index + 0.5;
 
     return AnimatedContainer(
       margin: EdgeInsets.symmetric(horizontal: 8),
-      width: 10,
-      height: 10,
+      width: isPrimary ? slideShowModel.primaryBulletSize : slideShowModel.secondaryBulletSize,
+      height: isPrimary ? slideShowModel.primaryBulletSize : slideShowModel.secondaryBulletSize,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: slideShowModel.currentPage >= this.index - 0.5 && slideShowModel.currentPage < this.index + 0.5 ? slideShowModel.primaryColor : slideShowModel.secondaryColor,
+        color: isPrimary ? slideShowModel.primaryColor : slideShowModel.secondaryColor,
       ), duration: Duration(milliseconds: 200),
     );
   }
 }
 
-
 class _SlideShowModel with ChangeNotifier {
   double _currentPage = 0;
   Color _primaryColor = Colors.black;
   Color _secondaryColor = Colors.grey;
+  double _primaryBulletSize = 12;
+  double _secondaryBulletSize = 12;
 
   // Current page.
   double get currentPage => this._currentPage;
@@ -159,7 +165,7 @@ class _SlideShowModel with ChangeNotifier {
   set primaryColor(Color color) {
     this._primaryColor = color;
 
-    notifyListeners();
+    //notifyListeners(); Not required because primary color is only set once.
   }
 
   // Secondary color.
@@ -168,6 +174,24 @@ class _SlideShowModel with ChangeNotifier {
   set secondaryColor(Color color) {
     this._secondaryColor = color;
 
-    notifyListeners();
+    //notifyListeners(); Not required because secondary color is only set once.
+  }
+
+  // Primary bullet size.
+  double get primaryBulletSize => this._primaryBulletSize;
+
+  set primaryBulletSize(double size) {
+    this._primaryBulletSize = size;
+
+    //notifyListeners(); Not required because primary bullet size is only set once.
+  }
+
+  // Secondary bullet size.
+  double get secondaryBulletSize => this._secondaryBulletSize;
+
+  set secondaryBulletSize(double size) {
+    this._secondaryBulletSize = size;
+
+    //notifyListeners(); Not required because secondary bullet size is only set once.
   }
 }
