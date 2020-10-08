@@ -9,20 +9,34 @@ class SlideShowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Slideshow(
-        showOnTop: false,
-        primaryColor: Colors.black,
-        secondaryColor: Colors.grey,
-        primaryBulletSize: 10,
-        secondaryBulletSize: 6,
-        slides: [
-          SvgPicture.asset('assets/svg/slide_1.svg'),
-          SvgPicture.asset('assets/svg/slide_2.svg'),
-          SvgPicture.asset('assets/svg/slide_3.svg'),
-          SvgPicture.asset('assets/svg/slide_4.svg'),
-          SvgPicture.asset('assets/svg/slide_5.svg'),
+      body: Column(
+        children: [
+          Expanded(child: _MySlideShow()),
+          Expanded(child: _MySlideShow()),
         ],
       ),
+    );
+  }
+}
+
+class _MySlideShow extends StatelessWidget {
+  const _MySlideShow({ Key key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Slideshow(
+      showOnTop: false,
+      primaryColor: Colors.black,
+      secondaryColor: Colors.grey,
+      primaryBulletSize: 14,
+      secondaryBulletSize: 10,
+      slides: [
+        SvgPicture.asset('assets/svg/slide_1.svg'),
+        SvgPicture.asset('assets/svg/slide_2.svg'),
+        SvgPicture.asset('assets/svg/slide_3.svg'),
+        SvgPicture.asset('assets/svg/slide_4.svg'),
+        SvgPicture.asset('assets/svg/slide_5.svg'),
+      ],
     );
   }
 }
