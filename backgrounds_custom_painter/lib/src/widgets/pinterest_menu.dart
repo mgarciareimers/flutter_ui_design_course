@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // Models.
 import 'package:backgrounds_design/src/models/pinterest_button_model.dart';
-import 'package:provider/provider.dart';
 
 class PinterestMenu extends StatelessWidget {
+  final bool show;
+
+  PinterestMenu({ Key key, this.show = true }) : super(key: key);
 
   final List<PinterestButton> items = [
     PinterestButton(icon: Icons.pie_chart, onPressed: () => print('Icon pie chart!')),
@@ -17,9 +20,13 @@ class PinterestMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => new _MenuModel(),
-      child: _PinteresMenuBackground(
-        child: _MenuItems(menuItems: this.items)
-      )
+      child: AnimatedOpacity(
+        opacity: this.show ? 1 : 0,
+        duration: Duration(milliseconds: 250),
+        child: _PinteresMenuBackground(
+          child: _MenuItems(menuItems: this.items)
+        ),
+      ),
     );
   }
 }
