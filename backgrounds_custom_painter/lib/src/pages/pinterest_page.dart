@@ -30,7 +30,18 @@ class _PositionedPinterestMenu extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-          child: PinterestMenu(show: Provider.of<_MenuModel>(context).show),
+          child: PinterestMenu(
+            show: Provider.of<_MenuModel>(context).show,
+            backgroundColor: Colors.white,
+            activeColor: Colors.black,
+            inactiveColor: Colors.grey,
+            items: [
+              PinterestButton(icon: Icons.pie_chart, onPressed: () => print('Icon pie chart!')),
+              PinterestButton(icon: Icons.search, onPressed: () => print('Icon search!')),
+              PinterestButton(icon: Icons.notifications, onPressed: () => print('Icon notifications!')),
+              PinterestButton(icon: Icons.supervised_user_circle, onPressed: () => print('Icon supervised user circle!')),
+            ],
+          ),
       ),
     );
   }
@@ -52,7 +63,9 @@ class _PinterestGridState extends State<PinterestGrid> {
     super.initState();
 
     this.controller.addListener(() {
-      if (this.previousOffset < this.controller.offset && this.controller.offset >= 0) {
+      if (this.controller.offset < 0) {
+        return;
+      } else if (this.previousOffset < this.controller.offset) {
         Provider.of<_MenuModel>(context, listen: false).show = false;
       } else {
         Provider.of<_MenuModel>(context, listen: false).show = true;
@@ -71,6 +84,7 @@ class _PinterestGridState extends State<PinterestGrid> {
   @override
   Widget build(BuildContext context) {
     return StaggeredGridView.countBuilder(
+      physics: BouncingScrollPhysics(),
       controller: this.controller,
       crossAxisCount: 4,
       itemCount: items.length,
