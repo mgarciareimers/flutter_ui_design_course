@@ -8,7 +8,26 @@ class PinterestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PinterestMenu(),
+      body: Stack(
+        children: [
+          PinterestGrid(),
+          _PositionedPinterestMenu(),
+        ],
+      ),
+    );
+  }
+}
+
+class _PositionedPinterestMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 16,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.center,
+          child: PinterestMenu()
+      ),
     );
   }
 }
