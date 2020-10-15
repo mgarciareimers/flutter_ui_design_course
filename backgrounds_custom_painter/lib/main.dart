@@ -8,6 +8,7 @@ import 'package:backgrounds_design/src/labs/circular_progress_page.dart';
 import 'package:backgrounds_design/src/pages/circular_graphics_page.dart';
 import 'package:backgrounds_design/src/pages/slideshow_page.dart';
 import 'package:backgrounds_design/src/pages/pinterest_page.dart';
+import 'package:backgrounds_design/src/pages/emergency_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Designs',
       debugShowCheckedModeBanner: false,
-      home: PinterestPage(),
+      home: EmergencyPage(),
     );
   }
 }
