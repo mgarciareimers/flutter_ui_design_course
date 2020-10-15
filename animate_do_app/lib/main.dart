@@ -1,3 +1,4 @@
+import 'package:animate_do_app/src/pages/navigation_page.dart';
 import 'package:flutter/material.dart';
 
 // Pages.
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Animate Do',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: NavigationPage(),
     );
   }
 }
