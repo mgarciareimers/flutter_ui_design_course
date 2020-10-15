@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// Routes.
+import 'package:backgrounds_design/src/routes/routes.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,12 +23,14 @@ class _OptionsList extends StatelessWidget {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       separatorBuilder: (context, index) => Divider(color: Colors.blue),
-      itemCount: 10,
+      itemCount: pageRoutes.length,
       itemBuilder: (context, index) => ListTile(
-        leading: FaIcon(FontAwesomeIcons.slideshare, color: Colors.blue),
-        title: Text('Hello World!'),
+        leading: FaIcon(pageRoutes[index].icon, color: Colors.blue),
+        title: Text(pageRoutes[index].title),
         trailing: Icon(Icons.chevron_right, color: Colors.blue),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => pageRoutes[index].page));
+        },
       ),
     );
   }

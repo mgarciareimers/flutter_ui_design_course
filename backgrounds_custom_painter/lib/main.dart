@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 
 // Pages.
-// import 'package:backgrounds_design/src/pages/headers_page.dart';
-// import 'package:backgrounds_design/src/pages/animations_page.dart';
-// import 'package:backgrounds_design/src/challenges/animated_square_page.dart';
-// import 'package:backgrounds_design/src/labs/circular_progress_page.dart';
-// import 'package:backgrounds_design/src/pages/circular_graphics_page.dart';
-// import 'package:backgrounds_design/src/pages/slideshow_page.dart';
-// import 'package:backgrounds_design/src/pages/pinterest_page.dart';
-// import 'package:backgrounds_design/src/pages/emergency_page.dart';
-// import 'package:backgrounds_design/src/pages/sliver_list_page.dart';
 import 'package:backgrounds_design/src/pages/home_page.dart';
 
 void main() {
