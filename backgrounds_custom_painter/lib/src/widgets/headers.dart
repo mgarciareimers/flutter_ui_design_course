@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // SQUARED HEADER.
 class SquaredHeader extends StatelessWidget {
@@ -294,20 +295,58 @@ class _WaveGradientHeaderPainter extends CustomPainter {
 }
 
 class IconHeader extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final Color colorStart;
+  final Color colorEnd;
+
+  const IconHeader({ @required this.icon, @required this.title, @required this.subtitle, this.colorStart = Colors.grey, this.colorEnd = Colors.blueGrey });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _IconHeaderBackground(colorStart: this.colorStart, colorEnd: this.colorEnd),
+        Positioned(
+          top: -50,
+          left: -50,
+          child: FaIcon(this.icon, size: 220, color: Colors.white.withOpacity(0.2)),
+        ),
+        Column(
+          children: [
+            SizedBox(height: 80, width: double.infinity),
+            Text(this.subtitle, style: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.7)), textAlign: TextAlign.center),
+            SizedBox(height: 20),
+            Text(this.title, style: TextStyle(fontSize: 25, color: Colors.white.withOpacity(0.7), fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+            SizedBox(height: 20),
+            FaIcon(this.icon, size: 80, color: Colors.white),
+          ],
+        )
+      ]
+    );
+  }
+}
+
+class _IconHeaderBackground extends StatelessWidget {
+  final Color colorStart;
+  final Color colorEnd;
+
+  const _IconHeaderBackground({ @required this.colorStart, @required this.colorEnd });
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 300,
       decoration: BoxDecoration(
-        color: Colors.red,
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60)),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: <Color> [
-            Color(0xff526BF6),
-            Color(0xff67ACF2),
+            this.colorStart,
+            this.colorEnd,
           ],
         )
       ),
