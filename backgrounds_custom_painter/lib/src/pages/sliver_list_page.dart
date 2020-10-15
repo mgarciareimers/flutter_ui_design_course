@@ -4,7 +4,7 @@ class SliverListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _Title(),
+      body: _TasksList(),
     );
   }
 }
@@ -41,17 +41,32 @@ class _Title extends StatelessWidget {
 }
 
 class _TasksList extends StatelessWidget {
+  final items = [
+    _TasksListItem(title: 'Orange', backgroundColor: Color(0xffF08F66) ),
+    _TasksListItem(title: 'Family', backgroundColor: Color(0xffF2A38A) ),
+    _TasksListItem(title: 'Subscriptions', backgroundColor: Color(0xffF7CDD5) ),
+    _TasksListItem(title: 'Books', backgroundColor: Color(0xffFCEBAF) ),
+    _TasksListItem(title: 'Orange', backgroundColor: Color(0xffF08F66) ),
+    _TasksListItem(title: 'Family', backgroundColor: Color(0xffF2A38A) ),
+    _TasksListItem(title: 'Subscriptions', backgroundColor: Color(0xffF7CDD5) ),
+    _TasksListItem(title: 'Books', backgroundColor: Color(0xffFCEBAF) ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
-      itemCount: 20,
-      itemBuilder: (context, index) => _TasksListItem(),
+      itemCount: this.items.length,
+      itemBuilder: (context, index) => this.items[index],
     );
   }
 }
 
 class _TasksListItem extends StatelessWidget {
+  final String title;
+  final Color backgroundColor;
+
+  const _TasksListItem({ @required this.title, @required this.backgroundColor });
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +76,10 @@ class _TasksListItem extends StatelessWidget {
       height: 130,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.orange,
+        color: this.backgroundColor,
         borderRadius: BorderRadius.circular(30),
       ),
-      child: Text('Orange', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+      child: Text(this.title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
     );
   }
 }
