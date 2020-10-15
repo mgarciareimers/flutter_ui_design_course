@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,7 +28,10 @@ class EmergencyPage extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    List<Widget> items = this.modelItems.map((ItemEmergencyModel item) => ItemEmergency(icon: item.icon, text: item.text, colorStart: item.colorStart, colorEnd: item.colorEnd, onPress: () { print(item.text); })).toList();
+    List<Widget> items = this.modelItems.map((ItemEmergencyModel item) => FadeInLeft(
+      duration: Duration(milliseconds: 500),
+      child: ItemEmergency(icon: item.icon, text: item.text, colorStart: item.colorStart, colorEnd: item.colorEnd, onPress: () { print(item.text); }))
+    ).toList();
 
     return Scaffold(
       body: Stack(
@@ -55,6 +59,20 @@ class PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconHeader(icon: FontAwesomeIcons.plus, title: 'Medical Assistance', subtitle: 'You have requested', colorStart: Color(0xff526BF6), colorEnd: Color(0xff67ACF2));
+    return Stack(
+      children: [
+        IconHeader(icon: FontAwesomeIcons.plus, title: 'Medical Assistance', subtitle: 'You have requested', colorStart: Color(0xff526BF6), colorEnd: Color(0xff67ACF2)),
+        Positioned(
+          child: RawMaterialButton(
+            padding: EdgeInsets.all(15),
+            onPressed: () {},
+              shape: CircleBorder(),
+            child: FaIcon(FontAwesomeIcons.ellipsisV, color: Colors.white, size: 20)
+          ),
+          right: -10,
+          top: 45,
+        )
+      ],
+    );
   }
 }
