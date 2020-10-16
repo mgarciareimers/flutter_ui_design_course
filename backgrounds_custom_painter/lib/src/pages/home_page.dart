@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+// Theme.
+import 'package:backgrounds_design/src/theme/theme_changer.dart';
 
 // Routes.
 import 'package:backgrounds_design/src/routes/routes.dart';
@@ -39,6 +43,8 @@ class _OptionsList extends StatelessWidget {
 class _Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+  final ThemeChanger theme = Provider.of<ThemeChanger>(context);
+
     return Drawer(
       child: Container(
         child: Column(
@@ -59,12 +65,26 @@ class _Menu extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
               title: Text('Dark Mode'),
-              trailing: Switch.adaptive(value: true, activeColor: Colors.blue, onChanged: (value) {}),
+              trailing: Switch.adaptive(
+                value: theme.darkTheme,
+                activeColor: Colors.blue,
+                onChanged: (value) => theme.darkTheme = value
+              ),
             ),
-            ListTile(
-              leading: Icon(Icons.add_to_home_screen, color: Colors.blue),
-              title: Text('Custom Theme'),
-              trailing: Switch.adaptive(value: true, activeColor: Colors.blue, onChanged: (value) {}),
+            SafeArea(
+              bottom: true,
+              top: false,
+              right: false,
+              left: false,
+              child: ListTile(
+                leading: Icon(Icons.add_to_home_screen, color: Colors.blue),
+                title: Text('Custom Theme'),
+                trailing: Switch.adaptive(
+                  value: theme.customTheme,
+                  activeColor: Colors.blue,
+                  onChanged: (value) => theme.customTheme = value
+                ),
+              ),
             )
           ],
         ),
