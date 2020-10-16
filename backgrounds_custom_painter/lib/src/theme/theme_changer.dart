@@ -13,6 +13,13 @@ class ThemeChanger with ChangeNotifier {
   static const int THEME_DARK = 2;
   static const int THEME_CUSTOM = 3;
 
+  static final ThemeData CUSTOM_THEME = ThemeData.dark().copyWith(
+    accentColor: Color(0xff48A0Eb),
+    primaryColorLight: Colors.white,
+    scaffoldBackgroundColor: Color(0xff16202B),
+    textTheme: TextTheme(bodyText1: TextStyle(color: Colors.white)),
+  );
+
   Preferences _preferences = new Preferences();
 
   ThemeChanger(int theme) {
@@ -30,7 +37,7 @@ class ThemeChanger with ChangeNotifier {
       case THEME_CUSTOM:
         this._darkTheme = false;
         this._customTheme = true;
-        this._currentTheme = ThemeData.light();
+        this._currentTheme = CUSTOM_THEME;
         break;
       default: break;
     }
@@ -56,12 +63,7 @@ class ThemeChanger with ChangeNotifier {
     this._customTheme = value;
 
     if (value) {
-      this._currentTheme = ThemeData.dark().copyWith(
-        accentColor: Color(0xff48A0Eb),
-        primaryColorLight: Colors.white,
-        scaffoldBackgroundColor: Color(0xff16202B),
-        textTheme: TextTheme(bodyText1: TextStyle(color: Colors.white)),
-      );
+      this._currentTheme = CUSTOM_THEME;
     } else {
       this._currentTheme = ThemeData.light();
     }
