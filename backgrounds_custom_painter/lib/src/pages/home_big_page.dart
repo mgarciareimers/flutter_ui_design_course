@@ -1,3 +1,5 @@
+import 'package:backgrounds_design/src/models/layout_model.dart';
+import 'package:backgrounds_design/src/pages/slideshow_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -8,17 +10,36 @@ import 'package:backgrounds_design/src/theme/theme_changer.dart';
 // Routes.
 import 'package:backgrounds_design/src/routes/routes.dart';
 
-class HomePage extends StatelessWidget {
+class HomeBigPage extends StatelessWidget {
+  static const double MENU_SIZE_BIG_SCREEN = 280;
+
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Provider.of<ThemeChanger>(context).currentTheme;
+    final ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
+    final LayoutModel layoutModel = Provider.of<LayoutModel>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Designs in Flutter - Small'),
-        backgroundColor: theme.accentColor,
+        title: Text('Designs in Flutter - Big'),
+        backgroundColor: themeChanger.currentTheme.accentColor,
       ),
-      body: _OptionsList(),
+      body: Row(
+        children: [
+          Container(
+            width: MENU_SIZE_BIG_SCREEN,
+            height: double.infinity,
+            child: _OptionsList(),
+          ),
+          Container(
+            width: 2,
+            height: double.infinity,
+            color: themeChanger.darkTheme ? Colors.grey : themeChanger.currentTheme.accentColor,
+          ),
+          Expanded(
+            child: layoutModel.currentPage,
+          ),
+        ],
+      ),
       drawer: _Menu(),
     );
   }
@@ -38,7 +59,8 @@ class _OptionsList extends StatelessWidget {
         title: Text(pageRoutes[index].title),
         trailing: Icon(Icons.chevron_right, color: theme.accentColor),
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => pageRoutes[index].page));
+          final LayoutModel layoutModel = Provider.of<LayoutModel>(context, listen: false);
+          layoutModel.currentPage = pageRoutes[index].page;
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:backgrounds_design/main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -28,6 +29,8 @@ class EmergencyPage extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    bool isHighScreen = MediaQuery.of(context).size.height > MyApp.BIG_SCREEN_SIZE;
+
     List<Widget> items = this.modelItems.map((ItemEmergencyModel item) => FadeInLeft(
       duration: Duration(milliseconds: 500),
       child: ItemEmergency(icon: item.icon, text: item.text, colorStart: item.colorStart, colorEnd: item.colorEnd, onPress: () { print(item.text); }))
@@ -37,17 +40,19 @@ class EmergencyPage extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 275),
-            child: ListView(
-              physics: BouncingScrollPhysics(),
-              children: [
-                SizedBox(height: 20),
-                ...items,
-                SizedBox(height: 20),
-              ],
+            margin: EdgeInsets.only(top: isHighScreen ?  275 : 0),
+            child: SafeArea(
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                children: [
+                  isHighScreen ? SizedBox(height: 20) : Container(),
+                  ...items,
+                  SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
-          PageHeader(),
+          isHighScreen ? PageHeader() : Container(),
         ],
       ),
     );

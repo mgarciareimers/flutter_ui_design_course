@@ -1,3 +1,5 @@
+import 'package:backgrounds_design/main.dart';
+import 'package:backgrounds_design/src/pages/home_big_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,11 +31,12 @@ class _PositionedPinterestMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   final ThemeData theme = Provider.of<ThemeChanger>(context).currentTheme;
+  final Size screenSize = MediaQuery.of(context).size;
 
     return Positioned(
       bottom: 16,
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: screenSize.width >= MyApp.BIG_SCREEN_SIZE ? screenSize.width - HomeBigPage.MENU_SIZE_BIG_SCREEN : screenSize.width,
         alignment: Alignment.center,
           child: PinterestMenu(
             show: Provider.of<_MenuModel>(context).show,
@@ -88,14 +91,16 @@ class _PinterestGridState extends State<PinterestGrid> {
 
   @override
   Widget build(BuildContext context) {
+    int count = MediaQuery.of(context).size.width >= MyApp.BIG_SCREEN_SIZE ? 3 : 2;
+
     return StaggeredGridView.countBuilder(
       physics: BouncingScrollPhysics(),
       controller: this.controller,
-      crossAxisCount: 4,
+      crossAxisCount: count,
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) => _PinterestItem(index: index),
       staggeredTileBuilder: (int index) =>
-      new StaggeredTile.count(2, index.isEven ? 2 : 3),
+      new StaggeredTile.count(1, index.isEven ? 1 : 2),
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
     );

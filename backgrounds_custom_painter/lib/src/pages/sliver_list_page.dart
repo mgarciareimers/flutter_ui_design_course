@@ -1,3 +1,5 @@
+import 'package:backgrounds_design/main.dart';
+import 'package:backgrounds_design/src/pages/home_big_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -172,9 +174,10 @@ class _ButtonCreateNewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
+    final Size screenSize = MediaQuery.of(context).size;
 
     return ButtonTheme(
-      minWidth: MediaQuery.of(context).size.width * 0.9,
+      minWidth: (screenSize.width >= MyApp.BIG_SCREEN_SIZE ? screenSize.width - HomeBigPage.MENU_SIZE_BIG_SCREEN : screenSize.width) * 0.9,
       height: 100,
       child: RaisedButton(
         onPressed: () {},

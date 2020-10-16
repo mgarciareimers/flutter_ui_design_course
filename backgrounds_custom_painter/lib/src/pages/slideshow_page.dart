@@ -1,3 +1,4 @@
+import 'package:backgrounds_design/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -11,13 +12,12 @@ import 'package:backgrounds_design/src/widgets/slideshow.dart';
 class SlideShowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    bool isHighScreen = MediaQuery.of(context).size.height >= MyApp.BIG_SCREEN_SIZE;
+
+    final List<Widget> children = [Expanded(child: _MySlideShow()), Expanded(child: _MySlideShow())];
+
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(child: _MySlideShow()),
-          Expanded(child: _MySlideShow()),
-        ],
-      ),
+      body: isHighScreen ? Column(children: children) : Row(children: children),
     );
   }
 }
