@@ -26,15 +26,15 @@ class _CircularGraphicsPageState extends State<CircularGraphicsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomRadialProgress(percentage: percentage, primaryColor: Colors.red, secondaryColor: Colors.redAccent, width: 150, height: 150, fontSize: 20),
-              CustomRadialProgress(percentage: percentage, primaryColor: Colors.green, secondaryColor: Colors.lightGreen, width: 150, height: 150, fontSize: 20),
+              CustomRadialProgress(percentage: percentage * 1.2, primaryColor: Colors.green, secondaryColor: Colors.lightGreen, width: 150, height: 150, fontSize: 20),
             ],
           ),
           CustomRadialProgress(percentage: percentage, primaryColor: Colors.blueGrey, secondaryColor: Colors.grey, width: 300, height: 300, fontSize: 50),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              CustomRadialProgress(percentage: percentage, primaryColor: Colors.lightBlue, secondaryColor: Colors.lightBlueAccent, width: 150, height: 150, fontSize: 20),
-              CustomRadialProgress(percentage: percentage, primaryColor: Colors.purple, secondaryColor: Colors.deepPurpleAccent, width: 150, height: 150, fontSize: 20),
+              CustomRadialProgress(percentage: percentage * 1.4, primaryColor: Colors.lightBlue, secondaryColor: Colors.lightBlueAccent, width: 150, height: 150, fontSize: 20),
+              CustomRadialProgress(percentage: percentage * 1.6, primaryColor: Colors.purple, secondaryColor: Colors.deepPurpleAccent, width: 150, height: 150, fontSize: 20),
             ],
           ),
         ],

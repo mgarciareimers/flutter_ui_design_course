@@ -195,24 +195,32 @@ class _CurveHeaderPainter extends CustomPainter {
 
 // WAVE HEADER.
 class WaveHeader extends StatelessWidget {
+  final Color color;
+
+  const WaveHeader({Key key, @required this.color}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: double.infinity,
       width: double.infinity,
       child: CustomPaint(
-        painter: _WaveHeaderPainter(),
+        painter: _WaveHeaderPainter(this.color),
       ),
     );
   }
 }
 
 class _WaveHeaderPainter extends CustomPainter {
+  final Color color;
+
+  _WaveHeaderPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = new Paint();
 
-    paint.color = Color(0xff615AAB);
+    paint.color = this.color; // Color(0xff615AAB);
     paint.style = PaintingStyle.fill; // If .stroke, paint draws lines (no fill).
     paint.strokeWidth = 1;
 

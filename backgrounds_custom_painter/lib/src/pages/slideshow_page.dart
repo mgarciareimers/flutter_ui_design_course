@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+// Theme.
+import 'package:backgrounds_design/src/theme/theme_changer.dart';
 
 // Widgets
 import 'package:backgrounds_design/src/widgets/slideshow.dart';
@@ -23,12 +27,14 @@ class _MySlideShow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
+
     return Slideshow(
       showOnTop: false,
-      primaryColor: Colors.black,
+      primaryColor: themeChanger.darkTheme ? themeChanger.currentTheme.accentColor : Colors.black,
       secondaryColor: Colors.grey,
-      primaryBulletSize: 14,
-      secondaryBulletSize: 10,
+      primaryBulletSize: 12,
+      secondaryBulletSize: 7,
       slides: [
         SvgPicture.asset('assets/svg/slide_1.svg'),
         SvgPicture.asset('assets/svg/slide_2.svg'),

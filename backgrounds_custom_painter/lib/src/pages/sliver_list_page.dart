@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+// Theme.
+import 'package:backgrounds_design/src/theme/theme_changer.dart';
 
 class SliverListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           _MainScroll(),
@@ -33,12 +36,22 @@ class _MainScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return CustomScrollView(
       physics: BouncingScrollPhysics(),
       slivers: [
         SliverPersistentHeader(
           floating: true,
-          delegate: _SliverCustomHeaderDelegate(maxHeight: 200, minHeight: 170, child: Container(color: Colors.white, child: _Title())),
+          delegate: _SliverCustomHeaderDelegate(
+            maxHeight: 200,
+            minHeight: 170,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              color: theme.scaffoldBackgroundColor,
+              child: _Title()
+            ),
+          ),
         ),
         SliverList(
           delegate: SliverChildListDelegate([
@@ -79,12 +92,14 @@ class _SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
 class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
+
     return Column(
       children: [
         SizedBox(height: 20),
         Container(
           margin: EdgeInsets.only(left: 20 , right: 20, top: 20),
-          child: Text('New', style: TextStyle(color: Color(0xff532128), fontSize: 50)),
+          child: Text('New', style: TextStyle(color: themeChanger.darkTheme ? Colors.grey : Color(0xff532128), fontSize: 50)),
         ),
         Stack(
           children: [
@@ -94,7 +109,7 @@ class _Title extends StatelessWidget {
               child: Container(
                 width: 150,
                 height: 8,
-                color: Color(0xffF7CDD5),
+                color: themeChanger.darkTheme ? Colors.grey : Color(0xffF7CDD5),
               ),
             ),
             Container(
@@ -137,13 +152,15 @@ class _TasksListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
+
     return Container(
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.all(30),
       height: 130,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        color: this.backgroundColor,
+        color: themeChanger.darkTheme ? Colors.grey : this.backgroundColor,
         borderRadius: BorderRadius.circular(30),
       ),
       child: Text(this.title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
@@ -154,16 +171,18 @@ class _TasksListItem extends StatelessWidget {
 class _ButtonCreateNewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
+
     return ButtonTheme(
       minWidth: MediaQuery.of(context).size.width * 0.9,
       height: 100,
       child: RaisedButton(
         onPressed: () {},
-        color: Color(0xffED6762),
+        color: themeChanger.darkTheme ? themeChanger.currentTheme.accentColor : Color(0xffED6762),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(topLeft: Radius.circular(50)),
         ),
-        child: Text('CREATE NEW LIST', style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 2)),
+        child: Text('CREATE NEW LIST', style: TextStyle(fontSize: 16, color: themeChanger.currentTheme.scaffoldBackgroundColor, fontWeight: FontWeight.bold, letterSpacing: 2)),
       ),
 
     );
