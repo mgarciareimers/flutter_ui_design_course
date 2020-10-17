@@ -22,7 +22,7 @@ class AddCartButton extends StatelessWidget {
             SizedBox(width: 20),
             Text('\$$price', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
             Spacer(),
-            OrangeButton(text: 'Add to cart'),
+            OrangeButton(text: 'Add to cart', horizontalPadding: 25, verticalPadding: 15),
             SizedBox(width: 20),
           ],
         ),
