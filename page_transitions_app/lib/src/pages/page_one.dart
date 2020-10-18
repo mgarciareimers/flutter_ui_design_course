@@ -17,14 +17,15 @@ class PageOnePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigate_next),
         onPressed: () {
-          Navigator.push(context, this._createRoute());
+          //Navigator.push(context, this._createRouteSlideTransition());
+          Navigator.push(context, this._createRouteScaleTransition());
         },
       ),
     );
   }
 
-  // Method that creates the route.
-  Route _createRoute() {
+  // Method that creates the route as slide transition.
+  Route _createRouteSlideTransition() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => PageTwoPage(),
       transitionDuration: Duration(milliseconds: 500),
@@ -33,6 +34,22 @@ class PageOnePage extends StatelessWidget {
 
         return SlideTransition(
           position: Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0)).animate(curvedAnimation),
+          child: child,
+        );
+      },
+    );
+  }
+
+  // Method that creates the route as scale transition.
+  Route _createRouteScaleTransition() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => PageTwoPage(),
+      transitionDuration: Duration(milliseconds: 500),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final CurvedAnimation curvedAnimation = new CurvedAnimation(parent: animation, curve: Curves.easeInOut);
+
+        return ScaleTransition(
+          scale: Tween<double>(begin: 0, end: 1).animate(curvedAnimation),
           child: child,
         );
       },
