@@ -6,7 +6,7 @@ class PageTwoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).accentColor,
-        title: Text('Page 1'),
+        title: Text('Page 2'),
       ),
       backgroundColor: Colors.white,
       body: Center(

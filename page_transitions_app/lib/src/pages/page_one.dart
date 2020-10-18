@@ -17,8 +17,9 @@ class PageOnePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigate_next),
         onPressed: () {
-          //Navigator.push(context, this._createRouteSlideTransition());
-          Navigator.push(context, this._createRouteScaleTransition());
+          // Navigator.push(context, this._createRouteSlideTransition());
+          // Navigator.push(context, this._createRouteScaleTransition());
+          Navigator.push(context, this._createRouteRotationTransition());
         },
       ),
     );
@@ -50,6 +51,22 @@ class PageOnePage extends StatelessWidget {
 
         return ScaleTransition(
           scale: Tween<double>(begin: 0, end: 1).animate(curvedAnimation),
+          child: child,
+        );
+      },
+    );
+  }
+
+  // Method that creates the route as rotation transition.
+  Route _createRouteRotationTransition() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => PageTwoPage(),
+      transitionDuration: Duration(milliseconds: 500),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final CurvedAnimation curvedAnimation = new CurvedAnimation(parent: animation, curve: Curves.easeInOut);
+
+        return RotationTransition(
+          turns: Tween<double>(begin: 0, end: -1).animate(curvedAnimation),
           child: child,
         );
       },
